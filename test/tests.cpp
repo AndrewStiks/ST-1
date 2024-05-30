@@ -6,37 +6,70 @@
 
 #include "alg.h"
 
-
-TEST(checkPrime, smallnumbers) {
+TEST(IsPrimeTest, SmallPrimeNumbers) {
   EXPECT_TRUE(checkPrime(2));
-  EXPECT_TRUE(checkPrime(3));
-  EXPECT_TRUE(checkPrime(5));
 }
 
-TEST(checkPrime, compositeNumbers) {
-  EXPECT_FALSE(checkPrime(4));
-  EXPECT_FALSE(checkPrime(6));
-  EXPECT_FALSE(checkPrime(9));
+TEST(IsPrimeTest, NegativeNumber) {
+  EXPECT_FALSE(checkPrime(-5));
 }
 
-TEST(nPrime, first) { EXPECT_EQ(nPrime(1), 2); }
+TEST(IsPrimeTest, Zero) {
+  EXPECT_FALSE(checkPrime(0));
+}
 
-TEST(nPrime, five) { EXPECT_EQ(nPrime(5), 11); }
+TEST(IsPrimeTest, One) {
+  EXPECT_FALSE(checkPrime(1));
+}
 
-TEST(nPrime, ten) { EXPECT_EQ(nPrime(10), 29); }
+TEST(IsPrimeTest, LargePrimeNumber) {
+  EXPECT_TRUE(checkPrime(104729));
+}
 
-TEST(nextPrime, nextprimeofsmallnumber) { EXPECT_EQ(nextPrime(10), 11); }
+TEST(NthPrimeTest, ZeroThPrime) {
+  EXPECT_THROW(nPrime(0), std::invalid_argument);
+}
 
-TEST(nextPrime, nextprimeoflargenumber) { EXPECT_EQ(nextPrime(997), 1009); }
+TEST(NthPrimeTest, NegativeNthPrime) {
+  EXPECT_THROW(nPrime(-10), std::invalid_argument);
+}
 
-TEST(nextPrime, nextprimeofprimenumber) { EXPECT_EQ(nextPrime(13), 17); }
+TEST(NthPrimeTest, LargeNthPrime) {
+  EXPECT_EQ(nPrime(1000), 7919);
+}
 
-TEST(sumPrime, sumbelowten) { EXPECT_EQ(sumPrime(10), 17); }
+TEST(NextPrimeTest, NextPrimeOfNegativeNumber) {
+  EXPECT_THROW(nextPrime(-7), std::invalid_argument);
+}
 
-TEST(sumPrime, sumbelow50) { EXPECT_EQ(sumPrime(50), 328); }
+TEST(NextPrimeTest, NextPrimeOfZero) {
+  EXPECT_EQ(nextPrime(0), 2);
+}
 
-TEST(sumPrime, SumOfPrimesBelowTwoMillion) {
-  uint64_t result = sumPrime(2000000);
-  uint64_t expected_sum = 142913828922;
-  EXPECT_EQ(result, expected_sum);
+TEST(NextPrimeTest, NextPrimeOfOne) {
+  EXPECT_EQ(nextPrime(1), 2);
+}
+
+TEST(NextPrimeTest, NextPrimeOfEvenNumber) {
+  EXPECT_EQ(nextPrime(24), 29);
+}
+
+TEST(SumOfPrimesTest, SumBelowZero) {
+  EXPECT_THROW(sumPrime(-10), 0);
+}
+
+TEST(SumOfPrimesTest, SumBelowOne) {
+  EXPECT_EQ(sumPrime(1), 0);
+}
+
+TEST(SumOfPrimesTest, SumBelowTwo) {
+  EXPECT_EQ(sumPrime(2), 0);
+}
+
+TEST(SumOfPrimesTest, SumBelowThree) {
+  EXPECT_EQ(sumPrime(3), 2);
+}
+
+TEST(SumOfPrimesTest, SumBelowLargeNumber) {
+  EXPECT_EQ(sumPrime(1000000), 37550402023);
 }

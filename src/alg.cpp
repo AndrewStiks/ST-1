@@ -2,6 +2,7 @@
 #include "alg.h"
 
 #include <cstdint>
+#include <stdexcept>
 
 bool checkPrime(uint64_t value) {
     if (value <= 1) return false;
@@ -15,6 +16,10 @@ bool checkPrime(uint64_t value) {
 }
 
 uint64_t nPrime(uint64_t n) {
+    if (n < 0) {
+        throw std::invalid_argument("Input value must be non-negative.");
+    }
+
     if (n == 0) return 0;
     uint64_t count = 0;
     uint64_t num = 1;
@@ -29,13 +34,26 @@ uint64_t nPrime(uint64_t n) {
 }
 
 uint64_t nextPrime(uint64_t value) {
+    if (value < 0) {
+        throw std::invalid_argument("Input value must be non-negative.");
+    }
+    
+    if (value < 2) {
+        return 2;
+    }
+    
     do {
         ++value;
     } while (!checkPrime(value));
+    
     return value;
 }
 
 uint64_t sumPrime(uint64_t upperBound) {
+    if (upperBound <= 2) {
+        return 0;
+    }
+    
     uint64_t sum = 0;
     for (uint64_t i = 2; i < upperBound; ++i) {
         if (checkPrime(i)) {
