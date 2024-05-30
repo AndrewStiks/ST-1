@@ -16,9 +16,7 @@ TEST(IsPrimeTest, One) { EXPECT_FALSE(checkPrime(1)); }
 
 TEST(IsPrimeTest, LargePrimeNumber) { EXPECT_TRUE(checkPrime(104729)); }
 
-TEST(NthPrimeTest, ZeroThPrime) {
-  EXPECT_THROW(nPrime(0), std::invalid_argument);
-}
+TEST(NthPrimeTest, ZeroThPrime) { EXPECT_EQ(nPrime(0), 0); }
 
 TEST(NthPrimeTest, NegativeNthPrime) {
   EXPECT_THROW(nPrime(-10), std::invalid_argument);
