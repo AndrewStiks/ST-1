@@ -11,8 +11,7 @@ target_include_directories(${PROJECT_NAME}
          ${${PROJECT_NAME}_SOURCE_DIR}/include)
 
 if(UNIX)
-  target_link_libraries(${PROJECT_NAME}
-      ${PROJECT_NAME} pthread)
+  target_link_libraries(${PROJECT_NAME} pthread)
 endif()
 
 add_executable(${PROJECT_NAME}.info main.cpp)
