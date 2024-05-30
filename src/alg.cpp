@@ -4,41 +4,43 @@
 #include <cstdint>
 
 bool checkPrime(uint64_t value) {
-  if (value <= 1) return false;
-  for (uint64_t i = 2; i * i <= value; i++) {
-    if (value % i == 0) return false;
-  }
-  return true;
+    if (value <= 1) return false;
+    if (value <= 3) return true;
+    if (value % 2 == 0 || value % 3 == 0) return false;
+
+    for (uint64_t i = 5; i * i <= value; i += 6) {
+        if (value % i == 0 || value % (i + 2) == 0) return false;
+    }
+    return true;
 }
 
 uint64_t nPrime(uint64_t n) {
-  uint64_t num = 0;
-  uint64_t res = 0;
-  while (n > 0) {
-    if (checkPrime(num)) {
-      res = num;
-      --n;
+    if (n == 0) return 0;
+    uint64_t count = 0;
+    uint64_t num = 1;
+
+    while (count < n) {
+        ++num;
+        if (checkPrime(num)) {
+            ++count;
+        }
     }
-    ++num;
-  }
-  return res;
+    return num;
 }
 
 uint64_t nextPrime(uint64_t value) {
-  while (true) {
-    ++value;
-    if (checkPrime(value)) {
-      return value;
-    }
-  }
+    do {
+        ++value;
+    } while (!checkPrime(value));
+    return value;
 }
 
-uint64_t sumPrime(uint64_t hbound) {
-  uint64_t sum = 0;
-  for (int i = 0; i < hbound; i++) {
-    if (checkPrime(i)) {
-      sum += i;
+uint64_t sumPrime(uint64_t upperBound) {
+    uint64_t sum = 0;
+    for (uint64_t i = 2; i < upperBound; ++i) {
+        if (checkPrime(i)) {
+            sum += i;
+        }
     }
-  }
-  return sum;
+    return sum;
 }
